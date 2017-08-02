@@ -24,9 +24,10 @@
     console.log(numValue);
     addNum = calculation.push(numValue);
     // console.log(addNum);
-    // for (var i = 0; i < calculation.length; i++) {
-    //   console.log('logged num', calculation[i]);
-    // }
+    for (var i = 0; i < calculation.length; i++) {
+      console.log('logged num', calculation[i]);
+      console.log(calculation);
+    }
     display(numValue);
   }
   

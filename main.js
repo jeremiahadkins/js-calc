@@ -18,20 +18,23 @@
     operatorButton[i].addEventListener("click", pushOperator);
   }
 
-
   function pushNumber() {
-    var numValue = event.target.textContent;
+    // clearDisplay();
+    var numValue = event.target.value;
     console.log(numValue);
     addNum = calculation.push(numValue);
-    console.log(addNum);
-    display(numValue);
+    // console.log(addNum);
+    for (var i = 0; i < calculation.length; i++) {
+      console.log('logged num', calculation[i]);
+    }
   }
   
   function pushOperator() {
+    // clearDisplay();
     var opValue = event.target.textContent;
     console.log(opValue);
     addOp = calculation.push(opValue);
-    console.log(addOp);
+    // console.log(addOp);
     display(opValue);
   }
 

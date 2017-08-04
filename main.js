@@ -5,7 +5,11 @@
   var equalButton = document.querySelector('.calc-equals');
   var clearButton = document.querySelector('.calc-clear');
   var displayArea = document.querySelector('.calc-header');
-  calculation = [];
+  var currentNum = '';
+  var currentOp = '';
+  var calculation = [];
+  var isCleared = false;
+  var operator = '';
 
   equalButton.addEventListener("click", calculate);
   clearButton.addEventListener("click", clearDisplay);
@@ -18,38 +22,58 @@
     operatorButton[i].addEventListener("click", pushOperator);
   }
 
-  function pushNumber() {
-    // clearDisplay();
-    var numValue = event.target.value;
-    console.log(numValue);
-    addNum = calculation.push(numValue);
-    // console.log(addNum);
-    for (var i = 0; i < calculation.length; i++) {
-      console.log('logged num', calculation[i]);
-      console.log(calculation);
-    }
-    display(numValue);
-  }
-  
-  function pushOperator() {
-    // clearDisplay();
-    var opValue = event.target.textContent;
-    console.log(opValue);
-    addOp = calculation.push(opValue);
-    // console.log(addOp);
-    display(opValue);
-  }
-
-  function calculate() {
-    var eqValue = event.target.textContent;
-    console.log(eqValue);
-  }
 
   function display(value) {
-    displayArea.textContent = displayArea.textContent += value;
+    displayArea.textContent = value;
   }
 
-  function clearDisplay() {
-    displayArea.textContent = 0;
+
+  function pushNumber() {
+    if (isCleared === true) {
+      currentNum = '';
+    }
+
+    isCleared = false;
+    currentNum += this.textContent;
+    console.log(currentNum);
+    display(currentNum);
   }
+
+  function pushOperator(event) {
+    if (currentNum != '') {
+      operator = event.target.value;
+      console.log(operator);
+      calculation.push(Number(currentNum));
+      console.log(calculation);
+      currentNum = '';          
+    } else {
+      console.log('ya big dummy');
+    }
+  }
+
+  function calculate() {  
+    calculation.push(Number(currentNum));
+    console.log(calculation);
+    if (operator === 'add') {
+      var answer = calculation[0] + calculation[1];      
+    } else if (operator === "subtract") {
+      var answer = calculation[0] - calculation[1];      
+    } else if (operator === 'multiply') {
+      var answer = calculation[0] * calculation[1];      
+    } else if (operator === 'divide') {
+      var answer = calculation[0] / calculation[1];      
+    }
+    console.log(answer);
+    return answer;
+  }
+
+
+  function clearDisplay() {
+    currentNum = 0;
+    display(currentNum);
+    isCleared = true;
+    calculation = [];
+    console.log('calc is cleared.');
+  }
+
 }());
